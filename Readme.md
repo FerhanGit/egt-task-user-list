@@ -1,18 +1,18 @@
-# Technical assignment
+git # Technical assignment
 ## EGT Digital June 5, 2024
 
 Requirements
 
 Create a basic web application using the following technology stack:
 
-```
-Technology - [React with Typescript](https://create-react-app.dev/docs/adding-typescript/) 
-State management - Redux and [redux-toolkit](https://redux-toolkit.js.org/introduction/getting-started)
-HTTP client (optional) - e.g. [Axios](https://github.com/axios/axios)
-UI Library (optional) - e.g. [Antd](https://ant.design/components/overview/)
-Router - [react-router](https://reactrouter.com/)
-Backend - [JSONPlaceholder API](https://jsonplaceholder.typicode.com/guide/)
-```
+
+- Technology - [React with Typescript](https://create-react-app.dev/docs/adding-typescript/) 
+- State management - Redux and [redux-toolkit](https://redux-toolkit.js.org/introduction/getting-started)
+- HTTP client (optional) - e.g. [Axios](https://github.com/axios/axios)
+- UI Library (optional) - e.g. [Antd](https://ant.design/components/overview/)
+- Router - [react-router](https://reactrouter.com/)
+- Backend - [JSONPlaceholder API](https://jsonplaceholder.typicode.com/guide/)
+
 
 ## Users list
 
