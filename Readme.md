@@ -1,4 +1,5 @@
-git # Technical assignment
+# Technical assignment
+
 ## EGT Digital June 5, 2024
 
 Requirements
