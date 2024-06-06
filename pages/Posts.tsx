@@ -6,12 +6,16 @@ import { Post  as PostType} from '../types/Post.tsx';
 import { User as UserType } from '../types/User.tsx'
 import PostsList from '../components/PostsList.tsx'
 import SingleUser from '../components/User'
+import { useParams } from 'react-router-dom';
 
 interface Props {}
 
 const Posts = (props: Props) => {
-    const { data: singleUser, isLoading: isLoadingSingleUser, isSuccess: isSuccessSingleUser, isError: isErrorSingleUser, error: errorSingleUser } = useGetSingleUsersQuery(2);
-    const { data, isLoading, isSuccess, isError, error } = useGetPostsByUsersQuery(2);
+
+    const { userId } = useParams();
+
+    const { data: singleUser, isLoading: isLoadingSingleUser, isSuccess: isSuccessSingleUser, isError: isErrorSingleUser, error: errorSingleUser } = useGetSingleUsersQuery(userId);
+    const { data, isLoading, isSuccess, isError, error } = useGetPostsByUsersQuery(userId);
 
     let content;
     if (isLoadingSingleUser) {

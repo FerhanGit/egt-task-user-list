@@ -7,4 +7,5 @@ export const router = createBrowserRouter([
     { path: '/', element: <Users />},
     { path: '/task', element: <Tasks />},
     { path: '/post', element: <Posts />},
+    { path: '/post/user/:userId', element: <Posts/>},
 ]);
