@@ -4,12 +4,14 @@ import Navbar from '../components/Navbar.tsx'
 import { useGetTodosQuery } from '../features/userSlice.tsx'
 import { Task as TaskType } from '../types/Task.tsx';
 import TasksTable from '../components/TasksTable.tsx'
+import { useSelector } from "react-redux"
+import { RootState } from '../app/store'
 
 interface Props {}
 
 const Tasks = (props: Props) => {
 
-    const [page, setPage] = useState(1);
+    const page = useSelector((state: RootState) => state.page.value);
 
     const { data, isLoading, isSuccess, isError, error} = useGetTodosQuery(page);
     
