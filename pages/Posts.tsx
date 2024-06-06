@@ -3,7 +3,9 @@ import React from 'react'
 import Navbar from '../components/Navbar.tsx'
 import { useGetSingleUsersQuery, useGetPostsByUsersQuery } from '../features/userSlice.tsx'
 import { Post  as PostType} from '../types/Post.tsx';
-
+import { User as UserType } from '../types/User.tsx'
+import PostsList from '../components/PostsList.tsx'
+import SingleUser from '../components/User'
 
 interface Props {}
 
@@ -15,7 +17,7 @@ const Posts = (props: Props) => {
     if (isLoadingSingleUser) {
         content =  <p>Loading...</p>;
     } else if (isSuccessSingleUser) {
-        content = <div className="text-center text-4xl">{singleUser.name}</div>
+        content = <div id="accordion-collapse" data-accordion="collapse"><SingleUser userData={singleUser} /></div>
     } else if (isErrorSingleUser) {
         content = `<p>${errorSingleUser}</p>`;
     }
@@ -26,10 +28,11 @@ const Posts = (props: Props) => {
         contentPosts =  <p>Loading...</p>;
     } else if (isSuccess) {
         if (data) {
-            contentPosts = data.map((post:PostType) => <div key={post.id} className="text-center text-4xl">{post.title}</div>)
+            contentPosts = <PostsList postsData={data}/>
         } else {
-            contentPosts = <div className="text-center text-4xl">{data.title}</div>
+            contentPosts = <div className="text-center text-4xl">No Data available</div>
         }
+
     } else if (isErrorSingleUser) {
         contentPosts = `<p>${error}</p>`;
     }
