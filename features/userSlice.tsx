@@ -34,6 +34,7 @@ export const userApi = createApi({
         }),   
         updatePost: builder.mutation<Post, Partial<Post>>({
             query(data) {
+               
               const { id, ...body } = data;
               return {
                 url: `posts/${id}`,

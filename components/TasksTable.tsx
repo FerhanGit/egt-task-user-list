@@ -11,7 +11,7 @@ type Props = {
 const TasksTable = (props: Props) => {
 
     const data = props.taskData;
-    const [updateTodo, { isLoading, isSuccess }] = useUpdateTodoMutation()
+    const [updateTodo, { isLoading }] = useUpdateTodoMutation()
 
     const onTodoStatusChangeClicked = async (task:TaskType) => {
         if (task) {
