@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import Navbar from '../components/Navbar.tsx'
 import { useGetTodosQuery } from '../features/userSlice.tsx'
 import { Task as TaskType } from '../types/Task.tsx';
+import TasksTable from '../components/TasksTable.tsx'
 
 interface Props {}
 
@@ -16,7 +17,7 @@ const Tasks = (props: Props) => {
     if (isLoading) {
         content =  <p>Loading...</p>;
     } else if (isSuccess && data) {
-        content = data.map((todo:TaskType) => <div key={todo.id} className="text-center text-4xl">{todo.title}</div>)
+        content = <TasksTable taskData={data} />
     } else if (isError) {
         content = `<p>${error}</p>`;
     }

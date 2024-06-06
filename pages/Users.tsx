@@ -12,14 +12,12 @@ const Users = (props: Props) => {
 
     const { data, isLoading, isSuccess, isError, error} = useGetAllUsersQuery();
    
-    console.log(data);
     let content;
     if (isLoading) {
         content =  <p>Loading...</p>;
     } else if (isSuccess) {
-        console.log(data);
         if (data) {
-            content = data.map((user:UserType) => <SingleUser key={user.id} userData={user} />)
+            content = <div id="accordion-collapse" data-accordion="collapse">{data.map((user:UserType) =><SingleUser key={user.id} userData={user} />)}</div>
         } else {
             content = <div className="text-center text-4xl">No Data available</div>
         }
