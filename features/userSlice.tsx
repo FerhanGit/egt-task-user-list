@@ -22,7 +22,7 @@ export const userApi = createApi({
             query: (user) => `/posts?userId=${user}`
         }),  
         getTodos: builder.query<Task[], number>({
-            query: (page) => `/todos?_page=${page}&_limit=20`
+            query: (page) => `/todos?_page=${page}&_limit=10`
         }),    
         deletePost: builder.mutation<{ success: boolean; id: number }, number>({
             query(id) {
@@ -34,14 +34,24 @@ export const userApi = createApi({
         }),   
         updatePost: builder.mutation<Post, Partial<Post>>({
             query(data) {
-              const { id, ...body } = data
+              const { id, ...body } = data;
               return {
                 url: `posts/${id}`,
                 method: 'PUT',
                 body,
               }
             },
-          }),
+        }),
+        updateTodo: builder.mutation<Task, Partial<Task>>({
+        query(data) {
+            const { id, ...body } = data;
+            return {
+                url: `todos/${id}`,
+                method: 'PUT',
+                body,
+            }
+        },
+        }),
     }),
 });
 
@@ -52,5 +62,6 @@ export const {
     useGetPostsByUsersQuery, 
     useGetTodosQuery, 
     useDeletePostMutation, 
-    useUpdatePostMutation
+    useUpdatePostMutation,
+    useUpdateTodoMutation
 } = userApi; 
