@@ -1,10 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React from 'react'
+import React, { useTransition } from 'react'
 import Navbar from '../components/Navbar.tsx'
 import { useGetAllUsersQuery } from '../features/userSlice.tsx'
 import { User as UserType } from '../types/User.tsx'
 import SingleUser from '../components/User'
+import type { CollapseProps } from 'antd';
+import { Collapse } from 'antd';
 
 interface Props {}
 
@@ -17,7 +19,15 @@ const Users = (props: Props) => {
         content =  <p>Loading...</p>;
     } else if (isSuccess) {
         if (data) {
-            content = <div id="accordion-collapse" data-accordion="collapse">{data.map((user:UserType) =><SingleUser key={user.id} userData={user} />)}</div>
+            const items = data.map((user:UserType) => {
+                return {
+                  key: user.id,
+                  label: user.name,
+                  children: <SingleUser key={user.id} userData={user} />,
+                }
+            });
+
+            content = <Collapse items={items} accordion defaultActiveKey={['1']} />;
         } else {
             content = <div className="text-center text-4xl">No Data available</div>
         }

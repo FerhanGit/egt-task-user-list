@@ -15,6 +15,9 @@ export const userApi = createApi({
         getSingleUsers: builder.query<User, number>({
             query: (user) => `/users/${user}`
         }),
+        getAllPosts: builder.query<Post[], void>({
+            query: () => `/posts`
+        }),  
         getPostsByUsers: builder.query<Post[], number>({
             query: (user) => `/posts?userId=${user}`
         }),  
@@ -24,4 +27,4 @@ export const userApi = createApi({
     }),
 });
 
-export const { useGetAllUsersQuery, useGetSingleUsersQuery, useGetPostsByUsersQuery, useGetTodosQuery} = userApi; 
+export const { useGetAllUsersQuery, useGetSingleUsersQuery, useGetAllPostsQuery, useGetPostsByUsersQuery, useGetTodosQuery} = userApi; 
