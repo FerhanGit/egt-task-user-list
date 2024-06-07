@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable prefer-const */
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -5,9 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import Pagination from './Pagination';
 import { Task as TaskType } from '../types/Task.tsx';
-import { useUpdateTodoMutation, useGetTodosByUsersQuery } from '../features/userSlice.tsx';
-import { useSelector } from "react-redux";
-import { RootState } from '../app/store';
+import { useUpdateTodoMutation } from '../slice/apiSlice.tsx';
 
 type Props = {
     taskData: TaskType[]
@@ -15,23 +14,30 @@ type Props = {
 
 const TasksTable = (props: Props) => {
 
-    let taskData = props.taskData;
+    const [search, setSearch] = useState('');
+    const [tasks, setTasks] = useState(props.taskData);
 
     const [updateTodo] = useUpdateTodoMutation()
 
     const onTodoStatusChangeClicked = async (task:TaskType) => {
         if (task) {
-            const updatedTodo = {...task, completed: !task.completed}
-            await updateTodo(updatedTodo)
+            try { 
+                const updatedTodo = {...task, completed: !task.completed}
+                const result = await updateTodo(updatedTodo)
+                setTasks(tasks.map(singleTask => {return singleTask.id === result.data?.id ? result.data : singleTask }));
+            } catch (e) {
+                console.log(e);
+            }
+           
         }
     }
-  
-    const [search, setSearch] = useState<any>(null);
  
     useEffect(() => {
-        console.log(search);
-        taskData = taskData.filter(task => task.title.includes(search));
-        console.log(taskData);
+        if(search === '')  {
+            setTasks(props.taskData);
+        } else {
+         setTasks(tasks.filter(task => task.title.includes(search)));
+        }
     }, [search]);
 
   return (
@@ -66,7 +72,7 @@ const TasksTable = (props: Props) => {
                     </tr>
                 </thead>
                 <tbody>
-                {taskData.map((todo:TaskType) => <tr key={todo.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                {tasks.map((todo:TaskType) => <tr key={todo.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                         <td className="w-4 p-4">
                             <div className="flex items-center">
                                 <input id="checkbox-table-search-1" type="checkbox" checked={todo.completed} onChange={() => onTodoStatusChangeClicked(todo)} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />

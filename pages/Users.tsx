@@ -1,16 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useTransition } from 'react'
+import React from 'react'
 import Navbar from '../components/Navbar.tsx'
-import { useGetAllUsersQuery } from '../features/userSlice.tsx'
+import { useGetAllUsersQuery } from '../slice/apiSlice.tsx'
 import { User as UserType } from '../types/User.tsx'
 import SingleUser from '../components/User'
-import type { CollapseProps } from 'antd';
 import { Collapse } from 'antd';
 
-interface Props {}
-
-const Users = (props: Props) => {
+const Users = () => {
 
     const { data, isLoading, isSuccess, isError, error} = useGetAllUsersQuery();
    

@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react'
-import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from "react-redux"
 import { RootState } from '../app/store'
-import { increment, decrement } from '../features/pageSlice'
+import { increment, decrement } from '../slice/pageSlice'
 
 type Props = {}
 
@@ -12,7 +11,6 @@ const Pagination = (props: Props) => {
   const page = useSelector((state: RootState) => state.page.value);
   const dispatch = useDispatch();
   
-  console.log(page);
   return (
     <div>
     <nav aria-label="Page navigation example">

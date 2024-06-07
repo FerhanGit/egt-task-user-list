@@ -3,18 +3,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react'
 import Navbar from '../components/Navbar.tsx'
-import { useGetSingleUsersQuery, useGetPostsByUsersQuery, useGetAllPostsQuery } from '../features/userSlice.tsx'
-import { Post, Post  as PostType} from '../types/Post.tsx';
-import { User as UserType } from '../types/User.tsx'
+import { useGetSingleUsersQuery, useGetPostsByUsersQuery, useGetAllPostsQuery } from '../slice/apiSlice.tsx'
+import { Post  as PostType} from '../types/Post.tsx';
 import SinglePost from '../components/Post.tsx'
 import SingleUser from '../components/User.tsx'
 import { useParams } from 'react-router-dom';
-import type { CollapseProps } from 'antd';
 import { Collapse } from 'antd';
 
-interface Props {}
-
-const Posts = (props: Props) => {
+const Posts = () => {
 
     let { userId } = useParams();
     const user = userId ? parseInt(userId) : 0;

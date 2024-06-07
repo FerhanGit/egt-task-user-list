@@ -1,6 +1,6 @@
 import {configureStore} from "@reduxjs/toolkit"
-import { userApi } from "../features/userSlice";
-import pageReducer from "../features/pageSlice";
+import { userApi } from "../slice/apiSlice";
+import pageReducer from "../slice/pageSlice";
 import { setupListeners } from "@reduxjs/toolkit/query";
 
 

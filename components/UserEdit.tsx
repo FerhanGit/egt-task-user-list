@@ -3,7 +3,7 @@
 import React from 'react';
 import { User as UserType} from '../types/User';
 import { Button, Form, Input, Space } from 'antd';
-import { useUpdateUserMutation } from '../features/userSlice.tsx';
+import { useUpdateUserMutation } from '../slice/apiSlice.tsx';
 
 interface Props {
     userData: UserType
@@ -27,7 +27,6 @@ const UserEdit = (props: Props) => {
   const [form] = Form.useForm();
 
   const onFinish = (values: any) => {
-    console.log(values);
     if (values) {
       const updatedUserData = {id: props.userData.id, ...values}
       updateUser(updatedUserData)

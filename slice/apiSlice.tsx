@@ -33,9 +33,6 @@ export const userApi = createApi({
         }),  
         getTodos: builder.query<Task[], number>({
             query: (page) => `/todos?_page=${page}&_limit=10`
-        }),    
-        getTodosByUsers: builder.query<Task[], any>({
-            query: ({page, user}) => `/todos?_page=${page}&_limit=10&userId=${user}`
         }),  
         deletePost: builder.mutation<{ success: boolean; id: number }, number>({
             query(id) {
@@ -78,5 +75,4 @@ export const {
     useUpdatePostMutation,
     useUpdateTodoMutation,
     useUpdateUserMutation,
-    useGetTodosByUsersQuery
 } = userApi; 

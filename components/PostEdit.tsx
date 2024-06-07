@@ -3,7 +3,7 @@
 import React from 'react';
 import { Post  as PostType} from '../types/Post.tsx';
 import { Button, Form, Input, Space } from 'antd';
-import { useUpdatePostMutation, useDeletePostMutation } from '../features/userSlice.tsx';
+import { useUpdatePostMutation, useDeletePostMutation } from '../slice/apiSlice.tsx';
 
 interface Props {
     postData: PostType
@@ -30,7 +30,6 @@ const PostEdit = (props: Props) => {
   const [form] = Form.useForm();
 
   const onFinish = (values: any) => {
-    console.log(values);
     if (values) {
       const updatedPostData = {id: props.postData.id, ...values}
       updatePost(updatedPostData)
@@ -42,7 +41,6 @@ const PostEdit = (props: Props) => {
   };
 
   const onDelete = (id: number) => {
-    console.log(id);
     if (id) {
       deletePost(id)
     }

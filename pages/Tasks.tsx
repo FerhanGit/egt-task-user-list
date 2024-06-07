@@ -1,15 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState } from 'react'
+import React from 'react'
 import Navbar from '../components/Navbar.tsx'
-import { useGetTodosQuery } from '../features/userSlice.tsx'
-import { Task as TaskType } from '../types/Task.tsx';
+import { useGetTodosQuery } from '../slice/apiSlice.tsx'
 import TasksTable from '../components/TasksTable.tsx'
 import { useSelector } from "react-redux"
 import { RootState } from '../app/store'
 
-interface Props {}
-
-const Tasks = (props: Props) => {
+const Tasks = () => {
 
     const page = useSelector((state: RootState) => state.page.value);
 
