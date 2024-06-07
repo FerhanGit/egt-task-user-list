@@ -4,11 +4,13 @@
 import React from 'react'
 import Navbar from '../components/Navbar.tsx'
 import { useGetSingleUsersQuery, useGetPostsByUsersQuery, useGetAllPostsQuery } from '../features/userSlice.tsx'
-import { Post  as PostType} from '../types/Post.tsx';
+import { Post, Post  as PostType} from '../types/Post.tsx';
 import { User as UserType } from '../types/User.tsx'
-import PostsList from '../components/PostsList.tsx'
-import SingleUser from '../components/User'
+import SinglePost from '../components/Post.tsx'
+import SingleUser from '../components/User.tsx'
 import { useParams } from 'react-router-dom';
+import type { CollapseProps } from 'antd';
+import { Collapse } from 'antd';
 
 interface Props {}
 
@@ -37,7 +39,16 @@ const Posts = (props: Props) => {
         contentPosts =  <p>Loading...</p>;
     } else if (isSuccess) {
         if (data) {
-            contentPosts = <PostsList postsData={data}/>
+            const items = data.map((post:PostType) => {
+                return {
+                  key: post.id,
+                  label: post.title,
+                  children: <SinglePost key={post.id} postData={post} />,
+                }
+            });
+
+            contentPosts = <Collapse items={items} accordion />;
+
         } else {
             contentPosts = <div className="text-center text-4xl">No Data available</div>
         }

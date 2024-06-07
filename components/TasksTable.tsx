@@ -1,8 +1,13 @@
+/* eslint-disable prefer-const */
+/* eslint-disable react-hooks/rules-of-hooks */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React from 'react'
-import Pagination from './Pagination'
+import React, { useState, useEffect } from 'react';
+import Pagination from './Pagination';
 import { Task as TaskType } from '../types/Task.tsx';
-import { useUpdateTodoMutation } from '../features/userSlice.tsx';
+import { useUpdateTodoMutation, useGetTodosByUsersQuery } from '../features/userSlice.tsx';
+import { useSelector } from "react-redux";
+import { RootState } from '../app/store';
 
 type Props = {
     taskData: TaskType[]
@@ -10,17 +15,25 @@ type Props = {
 
 const TasksTable = (props: Props) => {
 
-    const data = props.taskData;
-    const [updateTodo, { isLoading }] = useUpdateTodoMutation()
+    let taskData = props.taskData;
+
+    const [updateTodo] = useUpdateTodoMutation()
 
     const onTodoStatusChangeClicked = async (task:TaskType) => {
         if (task) {
             const updatedTodo = {...task, completed: !task.completed}
-          await updateTodo(updatedTodo)
-          //history.push(`/tasks/${postId}`)
+            await updateTodo(updatedTodo)
         }
-      }
+    }
   
+    const [search, setSearch] = useState<any>(null);
+ 
+    useEffect(() => {
+        console.log(search);
+        taskData = taskData.filter(task => task.title.includes(search));
+        console.log(taskData);
+    }, [search]);
+
   return (
     <div>
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -32,7 +45,7 @@ const TasksTable = (props: Props) => {
                             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                         </svg>
                     </div>
-                    <input type="text" id="table-search" className="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for items" />
+                    <input onChange={(e) => setSearch(e.target.value)} type="text" id="table-search" className="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for items" />
                 </div>
             </div>
             <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -53,7 +66,7 @@ const TasksTable = (props: Props) => {
                     </tr>
                 </thead>
                 <tbody>
-                {data.map((todo:TaskType) => <tr key={todo.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                {taskData.map((todo:TaskType) => <tr key={todo.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                         <td className="w-4 p-4">
                             <div className="flex items-center">
                                 <input id="checkbox-table-search-1" type="checkbox" checked={todo.completed} onChange={() => onTodoStatusChangeClicked(todo)} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />

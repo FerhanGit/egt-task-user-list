@@ -17,7 +17,6 @@ export const userApi = createApi({
         }),
         updateUser: builder.mutation<User, Partial<User>>({
             query(data) {
-               
               const { id, ...body } = data;
               return {
                 url: `users/${id}`,
@@ -35,6 +34,9 @@ export const userApi = createApi({
         getTodos: builder.query<Task[], number>({
             query: (page) => `/todos?_page=${page}&_limit=10`
         }),    
+        getTodosByUsers: builder.query<Task[], any>({
+            query: ({page, user}) => `/todos?_page=${page}&_limit=10&userId=${user}`
+        }),  
         deletePost: builder.mutation<{ success: boolean; id: number }, number>({
             query(id) {
               return {
@@ -45,24 +47,23 @@ export const userApi = createApi({
         }),   
         updatePost: builder.mutation<Post, Partial<Post>>({
             query(data) {
-               
-              const { id, ...body } = data;
-              return {
-                url: `posts/${id}`,
-                method: 'PUT',
-                body,
-              }
+                const { id, ...body } = data;
+                return {
+                    url: `posts/${id}`,
+                    method: 'PUT',
+                    body,
+                }
             },
         }),
         updateTodo: builder.mutation<Task, Partial<Task>>({
-        query(data) {
-            const { id, ...body } = data;
-            return {
-                url: `todos/${id}`,
-                method: 'PUT',
-                body,
-            }
-        },
+            query(data) {
+                const { id, ...body } = data;
+                return {
+                    url: `todos/${id}`,
+                    method: 'PUT',
+                    body,
+                }
+            },
         }),
     }),
 });
@@ -76,5 +77,6 @@ export const {
     useDeletePostMutation, 
     useUpdatePostMutation,
     useUpdateTodoMutation,
-    useUpdateUserMutation
+    useUpdateUserMutation,
+    useGetTodosByUsersQuery
 } = userApi; 

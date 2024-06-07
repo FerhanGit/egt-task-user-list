@@ -2,14 +2,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 import { User as UserType} from '../types/User';
-import { Button, Form, Input, Select, Space } from 'antd';
+import { Button, Form, Input, Space } from 'antd';
 import { useUpdateUserMutation } from '../features/userSlice.tsx';
 
 interface Props {
     userData: UserType
 }
-
-const { Option } = Select;
 
 const layout = {
   labelCol: { span: 8 },
@@ -68,10 +66,10 @@ const UserEdit = (props: Props) => {
     <Form
         {...layout}
         form={form}
-        name="control-hooks"
+        name={`control-hooks-${props.userData.id}`}
         initialValues={initialValues}
         onFinish={onFinish}
-        style={{ maxWidth: 600 }}
+        style={{ maxWidth: 800 }}
       >
         <Form.Item name="name" label="Name" rules={[{ required: true }]}>
           <Input />
@@ -82,10 +80,10 @@ const UserEdit = (props: Props) => {
         <Form.Item name="username" label="User Name" rules={[{ required: true }]}>
           <Input />
         </Form.Item>
-        <Form.Item name="phone" label="Phone" rules={[{ required: true }]}>
+        <Form.Item name="phone" label="Phone" rules={[{ required: false }]}>
           <Input />
         </Form.Item>
-        <Form.Item name="website" label="Website" rules={[{ required: true }]}>
+        <Form.Item name="website" label="Website" rules={[{ required: false }]}>
           <Input />
         </Form.Item>
       <Form.Item label="Company">
@@ -100,14 +98,14 @@ const UserEdit = (props: Props) => {
         <Form.Item
           name={['company', 'catchPhrase']}
           noStyle
-          rules={[{ required: true, message: 'Company catch Phrase is required' }]}
+          rules={[{ required: false }]}
         >
           <Input style={{ width: '50%' }} placeholder="Input company catch Phrase" />
         </Form.Item>
         <Form.Item
           name={['company', 'bs']}
           noStyle
-          rules={[{ required: true, message: 'Company BS is required' }]}
+          rules={[{ required: false }]}
         >
           <Input style={{ width: '50%' }} placeholder="Input company BS" />
         </Form.Item>
@@ -127,7 +125,7 @@ const UserEdit = (props: Props) => {
         <Form.Item
           name={['address', 'zipcode']}
           noStyle
-          rules={[{ required: true, message: 'Address zipcode is required' }]}
+          rules={[{ required: false }]}
         >
           <Input style={{ width: '50%' }} placeholder="Input zipcode country" />
         </Form.Item>
@@ -148,14 +146,14 @@ const UserEdit = (props: Props) => {
         <Form.Item
           name={['address', 'geo', 'lat']}
           noStyle
-          rules={[{ required: true, message: 'Address geo LAT is required' }]}
+          rules={[{ required: false }]}
         >
           <Input style={{ width: '50%' }} placeholder="Input geo LAT" />
         </Form.Item>
         <Form.Item
           name={['address', 'geo', 'lng']}
           noStyle
-          rules={[{ required: true, message: 'Address geo LNG is required' }]}
+          rules={[{ required: false }]}
         >
           <Input style={{ width: '50%' }} placeholder="Input geo LNG" />
         </Form.Item>
@@ -168,7 +166,7 @@ const UserEdit = (props: Props) => {
               Submit
             </Button>
             <Button htmlType="button" onClick={onReset}>
-              Reset
+              Revert
             </Button>
           </Space>
         </Form.Item>
