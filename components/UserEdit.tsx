@@ -21,9 +21,8 @@ const tailLayout = {
 
 const UserEdit = (props: Props) => {
 
-  const [updateUser, { isLoading }] = useUpdateUserMutation()
+  const [updateUser] = useUpdateUserMutation()
 
- 
   const [form] = Form.useForm();
 
   const onFinish = (values: any) => {

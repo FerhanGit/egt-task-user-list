@@ -22,7 +22,7 @@ const Posts = () => {
         if (isLoadingSingleUser) {
             content =  <p>Loading...</p>;
         } else if (isSuccessSingleUser && singleUser) {
-            content = <div id="accordion-collapse" data-accordion="collapse"><SingleUser userData={singleUser} /></div>
+            content = <div id="accordion-collapse" data-accordion="collapse"><SingleUser onPostsPage={true} userData={singleUser} /></div>
         } else if (isErrorSingleUser && errorSingleUser) {
             content = `<p>${errorSingleUser}</p>`;
         }
@@ -30,10 +30,29 @@ const Posts = () => {
    
     const { data, isLoading, isSuccess, isError, error } = userId ? useGetPostsByUsersQuery(user) : useGetAllPostsQuery();
 
-    let contentPosts;
     if (isLoading) {
-        contentPosts =  <p>Loading...</p>;
-    } else if (isSuccess) {
+        return (
+            <>
+                <Navbar/>
+                {content}
+                <p>Loading...</p>
+            </>
+        )
+    } 
+    
+    if (isError && error) {
+        const errorMsg = `<p>${error}</p>`;
+        return (
+            <>
+                <Navbar/>
+                {content}
+                {errorMsg}
+            </>
+        )
+    }
+    
+    let contentPosts;
+    if (isSuccess) {
         if (data) {
             const items = data.map((post:PostType) => {
                 return {
@@ -48,10 +67,8 @@ const Posts = () => {
         } else {
             contentPosts = <div className="text-center text-4xl">No Data available</div>
         }
+    } 
 
-    } else if (isError && error) {
-        contentPosts = `<p>${error}</p>`;
-    }
 
   return (
     <>
