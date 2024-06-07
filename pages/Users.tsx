@@ -24,7 +24,7 @@ const Users = () => {
                 }
             });
 
-            content = <Collapse items={items} accordion defaultActiveKey={['1']} />;
+            content = <Collapse items={items} accordion />;
         } else {
             content = <div className="text-center text-4xl">No Data available</div>
         }
