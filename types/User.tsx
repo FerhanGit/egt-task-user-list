@@ -3,7 +3,6 @@ export type UserAddress = {
     street: string;
     suite: string;
     city: string;
-    country: string;
     zipcode: string;
     geo: {
         lat: string;

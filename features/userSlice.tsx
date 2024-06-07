@@ -15,6 +15,17 @@ export const userApi = createApi({
         getSingleUsers: builder.query<User, number>({
             query: (user) => `/users/${user}`
         }),
+        updateUser: builder.mutation<User, Partial<User>>({
+            query(data) {
+               
+              const { id, ...body } = data;
+              return {
+                url: `users/${id}`,
+                method: 'PUT',
+                body,
+              }
+            },
+        }),
         getAllPosts: builder.query<Post[], void>({
             query: () => `/posts`
         }),  
@@ -64,5 +75,6 @@ export const {
     useGetTodosQuery, 
     useDeletePostMutation, 
     useUpdatePostMutation,
-    useUpdateTodoMutation
+    useUpdateTodoMutation,
+    useUpdateUserMutation
 } = userApi; 
